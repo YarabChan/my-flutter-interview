@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
@@ -13,7 +11,7 @@ class _ProfileState extends State<Profile> {
   bool isSelected = false;
 
   Widget title() {
-    return Align(
+    return const Align(
       alignment: Alignment.center,
       child: Text(
         "Please select your profile",
@@ -45,13 +43,13 @@ class _ProfileState extends State<Profile> {
           children: [
             mySizedBox(0, 1 / 100),
             isSelected == false
-                ? Icon(
+                ? const Icon(
                     Icons.circle_outlined,
                     color: Colors.grey,
                   )
-                : Icon(Icons.radio_button_checked),
+                : const Icon(Icons.radio_button_checked),
             mySizedBox(0, 1 / 100),
-            Icon(
+            const Icon(
               Icons.store_mall_directory,
               size: 60,
             ),
@@ -60,7 +58,7 @@ class _ProfileState extends State<Profile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 mySizedBox(2 / 100, 0),
-                Text(
+                const Text(
                   "Shipper",
                   style: TextStyle(
                       color: Colors.black,
@@ -68,14 +66,14 @@ class _ProfileState extends State<Profile> {
                       fontWeight: FontWeight.w500),
                 ),
                 mySizedBox(1 / 100, 0),
-                Text(
+                const Text(
                   "Lorem ipsum dolor sit amet,",
                   style: TextStyle(
                       color: Colors.grey,
                       fontSize: 12,
                       fontWeight: FontWeight.w400),
                 ),
-                Text(
+                const Text(
                   "consectetur adipiscing",
                   style: TextStyle(
                       color: Colors.grey,
@@ -105,13 +103,13 @@ class _ProfileState extends State<Profile> {
           children: [
             mySizedBox(0, 1 / 100),
             isSelected == true
-                ? Icon(
+                ? const Icon(
                     Icons.circle_outlined,
                     color: Colors.grey,
                   )
-                : Icon(Icons.radio_button_checked),
+                : const Icon(Icons.radio_button_checked),
             mySizedBox(0, 1.5 / 100),
-            Icon(
+            const Icon(
               Icons.fire_truck_rounded,
               size: 60,
             ),
@@ -120,7 +118,7 @@ class _ProfileState extends State<Profile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 mySizedBox(2.5 / 100, 0),
-                Text(
+                const Text(
                   "Transporter",
                   style: TextStyle(
                       color: Colors.black,
@@ -128,14 +126,14 @@ class _ProfileState extends State<Profile> {
                       fontWeight: FontWeight.w500),
                 ),
                 mySizedBox(1 / 100, 0),
-                Text(
+                const Text(
                   "Lorem ipsum dolor sit amet,",
                   style: TextStyle(
                       color: Colors.grey,
                       fontSize: 12,
                       fontWeight: FontWeight.w400),
                 ),
-                Text(
+                const Text(
                   "consectetur adipiscing",
                   style: TextStyle(
                       color: Colors.grey,
@@ -156,12 +154,12 @@ class _ProfileState extends State<Profile> {
       width: MediaQuery.of(context).size.width * 90 / 100,
       child: ElevatedButton(
         onPressed: () {},
-        child: Text(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromARGB(255, 41, 4, 141)),
+        child: const Text(
           "CONTINUE",
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        style: ElevatedButton.styleFrom(
-            backgroundColor: Color.fromARGB(255, 41, 4, 141)),
       ),
     );
   }

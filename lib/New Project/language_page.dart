@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 
 import 'package:mfi_flutter/New%20Project/otp_page.dart';
 
@@ -43,18 +42,18 @@ class _LanguageState extends State<Language> {
     Widget titleSubTitleSection() {
       return Column(
         children: [
-          Text(
+          const Text(
             "Please select your Language",
             style: TextStyle(
                 color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
           ),
           mySizedBox(15),
-          Text(
+          const Text(
             "You can change the language",
             style: TextStyle(
                 color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w400),
           ),
-          Text(
+          const Text(
             "at any time",
             style: TextStyle(
                 color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w400),
@@ -65,15 +64,15 @@ class _LanguageState extends State<Language> {
 
     Widget dropDownSection() {
       return Container(
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         height: MediaQuery.of(context).size.height * 6 / 100,
         width: MediaQuery.of(context).size.width * 60 / 100,
         decoration: BoxDecoration(color: Colors.white, border: Border.all()),
         child: DropdownButton<String>(
           value: value,
           isExpanded: true,
-          hint: Text("Select your language"),
-          underline: SizedBox(),
+          hint: const Text("Select your language"),
+          underline: const SizedBox(),
           items: items.map(buildMenuItem).toList(),
           onChanged: (value) => setState(() => this.value = value),
         ),
@@ -86,21 +85,21 @@ class _LanguageState extends State<Language> {
         width: MediaQuery.of(context).size.width * 60 / 100,
         child: ElevatedButton(
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Otppage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const Otppage()));
           },
-          child: Text(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromARGB(255, 41, 4, 141)),
+          child: const Text(
             "NEXT",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          style: ElevatedButton.styleFrom(
-              backgroundColor: Color.fromARGB(255, 41, 4, 141)),
         ),
       );
     }
 
     Widget imageSection() {
-      return Icon(
+      return const Icon(
         Icons.photo_outlined,
         size: 60,
       );
@@ -134,14 +133,14 @@ DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
     value: item,
     child: Text(
       item,
-      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
+      style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
     ));
 
 class GreyCustomPaint extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint0 = Paint()
-      ..color = Color.fromRGBO(130, 121, 121, 0.6)
+      ..color = const Color.fromRGBO(130, 121, 121, 0.6)
       ..style = PaintingStyle.fill
       ..strokeWidth = 1;
 
@@ -168,7 +167,7 @@ class BlueCustomPaint extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint0 = Paint()
-      ..color = Color.fromARGB(255, 59, 170, 235)
+      ..color = const Color.fromARGB(255, 59, 170, 235)
       ..style = PaintingStyle.fill
       ..strokeWidth = 1;
 

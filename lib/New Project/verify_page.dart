@@ -1,41 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mfi_flutter/New%20Project/profile_page.dart';
-import 'package:otp_autofill/otp_autofill.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
+// ignore: must_be_immutable
 class Verifypage extends StatefulWidget {
   String verificationIdReceived;
-  Verifypage(this.verificationIdReceived, {super.key});
+  String mobileController;
+  Verifypage(this.verificationIdReceived, this.mobileController, {super.key});
 
   @override
   State<Verifypage> createState() => _VerifypageState();
 }
 
-class _VerifypageState extends State<Verifypage> {
-  late OTPInteractor _otpInteractor;
+class _VerifypageState extends State<Verifypage> with CodeAutoFill {
   TextEditingController otpController = TextEditingController();
+
+  String codeValue = "";
+
+  @override
+  void codeUpdated() {
+    setState(() {});
+  }
 
   @override
   void initState() {
     super.initState();
-    _otpInteractor = OTPInteractor();
-    _otpInteractor
-        .getAppSignature()
-        .then((value) => print('signature - $value'));
+    listenOtp();
+  }
 
-    otpController = OTPTextEditController(
-      codeLength: 6,
-      onCodeReceive: (code) => print('Your Application receive code - $code'),
-      otpInteractor: _otpInteractor,
-    )..startListenUserConsent(
-        (code) {
-          final exp = RegExp(r'(\d{5})');
-          return exp.stringMatch(code ?? '') ?? '';
-        },
-        strategies: [
-          //SampleStrategy(),
-        ],
-      );
+  listenOtp() async {
+    await SmsAutoFill().unregisterListener();
+    listenForCode();
+    await SmsAutoFill().listenForCode();
+  }
+
+  @override
+  void dispose() {
+    SmsAutoFill().unregisterListener();
+    super.dispose();
   }
 
   Widget arrowIcon() {
@@ -43,7 +45,7 @@ class _VerifypageState extends State<Verifypage> {
       alignment: Alignment.topLeft,
       child: IconButton(
           onPressed: () {},
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_rounded,
             color: Colors.black,
           )),
@@ -59,15 +61,15 @@ class _VerifypageState extends State<Verifypage> {
   Widget titleSubtitle() {
     return Column(
       children: [
-        Text(
+        const Text(
           "Verify Phone",
           style: TextStyle(
               color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
         ),
         mySizedBox(15),
         Text(
-          "Code is sent to 8094508485",
-          style: TextStyle(
+          "Code is sent to ${widget.mobileController} ",
+          style: const TextStyle(
               color: Colors.grey, fontSize: 16, fontWeight: FontWeight.w500),
         ),
       ],
@@ -75,131 +77,30 @@ class _VerifypageState extends State<Verifypage> {
   }
 
   Widget otpBox() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Column(
       children: [
-        Container(
-          height: 40,
-          width: 40,
-          decoration: BoxDecoration(color: Color.fromARGB(255, 81, 169, 241)),
-          child: TextFormField(
-            controller: otpController,
-            onChanged: (value) {
-              if (value.length == 1) {
-                FocusScope.of(context).nextFocus();
-              }
-            },
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline6,
-            keyboardType: TextInputType.number,
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(1),
-              FilteringTextInputFormatter.digitsOnly
-            ],
-          ),
-        ),
-        Container(
-          height: 40,
-          width: 40,
-          decoration: BoxDecoration(color: Color.fromARGB(255, 84, 160, 223)),
-          child: TextFormField(
-            onChanged: (value) {
-              if (value.length == 1) {
-                FocusScope.of(context).nextFocus();
-              }
-            },
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline6,
-            keyboardType: TextInputType.number,
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(1),
-              FilteringTextInputFormatter.digitsOnly
-            ],
-          ),
-        ),
-        Container(
-          height: 40,
-          width: 40,
-          decoration: BoxDecoration(color: Color.fromARGB(255, 89, 158, 214)),
-          child: TextFormField(
-            onChanged: (value) {
-              if (value.length == 1) {
-                FocusScope.of(context).nextFocus();
-              }
-            },
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline6,
-            keyboardType: TextInputType.number,
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(1),
-              FilteringTextInputFormatter.digitsOnly
-            ],
-          ),
-        ),
-        Container(
-          height: 40,
-          width: 40,
-          decoration: BoxDecoration(color: Color.fromARGB(255, 92, 154, 204)),
-          child: TextFormField(
-            onChanged: (value) {
-              if (value.length == 1) {
-                FocusScope.of(context).nextFocus();
-              }
-            },
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline6,
-            keyboardType: TextInputType.number,
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(1),
-              FilteringTextInputFormatter.digitsOnly
-            ],
-          ),
-        ),
-        Container(
-          height: 40,
-          width: 40,
-          decoration: BoxDecoration(color: Color.fromARGB(255, 92, 154, 204)),
-          child: TextFormField(
-            onChanged: (value) {
-              if (value.length == 1) {
-                FocusScope.of(context).nextFocus();
-              }
-            },
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline6,
-            keyboardType: TextInputType.number,
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(1),
-              FilteringTextInputFormatter.digitsOnly
-            ],
-          ),
-        ),
-        Container(
-          height: 40,
-          width: 40,
-          decoration: BoxDecoration(color: Color.fromARGB(255, 92, 154, 204)),
-          child: TextFormField(
-            onChanged: (value) {
-              if (value.length == 1) {
-                FocusScope.of(context).nextFocus();
-              }
-            },
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline6,
-            keyboardType: TextInputType.number,
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(1),
-              FilteringTextInputFormatter.digitsOnly
-            ],
-          ),
-        ),
+        Center(
+          child: PinFieldAutoFill(
+              decoration: UnderlineDecoration(
+                textStyle: const TextStyle(fontSize: 20, color: Colors.black),
+                colorBuilder: FixedColorBuilder(Colors.black.withOpacity(0.3)),
+              ),
+              codeLength: 6,
+              currentCode: codeValue,
+              onCodeChanged: (code) {
+                setState(() {
+                  codeValue = code.toString();
+                });
+              },
+              onCodeSubmitted: (val) {}),
+        )
       ],
     );
   }
 
   Widget richText() {
     return RichText(
-      text: TextSpan(
+      text: const TextSpan(
           text: "Didn't receive the code?",
           style: TextStyle(
               color: Colors.grey, fontSize: 16, fontWeight: FontWeight.w400),
@@ -219,16 +120,16 @@ class _VerifypageState extends State<Verifypage> {
       height: MediaQuery.of(context).size.height * 7 / 100,
       width: MediaQuery.of(context).size.width * 100 / 100,
       child: ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Profile()));
+        onPressed: () async {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const Profile()));
         },
-        child: Text(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromARGB(255, 41, 4, 141)),
+        child: const Text(
           " VERIFY AND CONTINUE",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
-        style: ElevatedButton.styleFrom(
-            backgroundColor: Color.fromARGB(255, 41, 4, 141)),
       ),
     );
   }

@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:intl_phone_field/phone_number.dart';
 import 'package:mfi_flutter/New%20Project/verify_page.dart';
 
 class Otppage extends StatefulWidget {
@@ -23,10 +21,10 @@ class _OtppageState extends State<Otppage> {
         verificationCompleted: (PhoneAuthCredential credential) async {
           await auth
               .signInWithCredential(credential)
-              .then((value) => {print("Your are Login Succesfully")});
+              .then((value) => {debugPrint("Your are Login Succesfully")});
         },
         verificationFailed: (FirebaseAuthException exception) {
-          print(exception.message);
+          debugPrint(exception.message);
         },
         codeSent: (String verificationID, int? resendToken) {
           verificationIdReceived = verificationID;
@@ -56,18 +54,18 @@ class _OtppageState extends State<Otppage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
+        const Text(
           "Please enter Your mobile number",
           style: TextStyle(
               color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
         ),
         mySizedBox(20),
-        Text(
+        const Text(
           "You 'll receive a 4 digit code",
           style: TextStyle(
               color: Colors.grey, fontSize: 16, fontWeight: FontWeight.w500),
         ),
-        Text(
+        const Text(
           "to verify next",
           style: TextStyle(
               color: Colors.grey, fontSize: 16, fontWeight: FontWeight.w500),
@@ -97,14 +95,15 @@ class _OtppageState extends State<Otppage> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => Verifypage(verificationIdReceived)));
+                  builder: (context) => Verifypage(
+                      verificationIdReceived, mobileController.text)));
         },
+        style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromARGB(255, 41, 4, 141)),
         child: const Text(
           "CONTINUE",
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 41, 4, 141)),
       ),
     );
   }
